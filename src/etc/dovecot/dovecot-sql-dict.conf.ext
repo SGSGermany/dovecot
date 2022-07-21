@@ -1,0 +1,15 @@
+connect = "host=/run/mysql/mysql.sock dbname=${MYSQL_DATABASE} user=${MYSQL_USER} password=${MYSQL_PASSWORD}"
+
+map {
+  pattern = priv/quota/storage
+  table = mailbox_quota
+  username_field = address
+  value_field = bytes
+}
+
+map {
+  pattern = priv/quota/messages
+  table = mailbox_quota
+  username_field = address
+  value_field = messages
+}

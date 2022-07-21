@@ -1,0 +1,23 @@
+driver = mysql
+connect = "host=/run/mysql/mysql.sock dbname=${MYSQL_DATABASE} user=${MYSQL_USER} password=${MYSQL_PASSWORD}"
+
+user_query = \
+  SELECT \
+    quota_rule, \
+    quota_rule2, \
+    quota_rule3 \
+  FROM mailbox \
+  WHERE address = '%Lu'
+
+password_query = \
+  SELECT \
+    mailbox AS user, \
+    password \
+  FROM user \
+  WHERE \
+    user = '%Lu' \
+    AND ( access_restriction = 'ALL' OR FIND_IN_SET('%Us', access_restriction) )
+
+iterate_query = \
+    SELECT mailbox AS user \
+    FROM user
